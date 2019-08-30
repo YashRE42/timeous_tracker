@@ -3,7 +3,7 @@ const CREDS = require('./creds');
 async function run() {
 const browser = await puppeteer.launch({
   headless: false,
-  slowMo: 5 // slow down by 250ms
+  // slowMo: 5 // slow down by 250ms
 });
   const page = await browser.newPage();
   await page.goto('https://myactivity.google.com/');
@@ -18,11 +18,11 @@ const browser = await puppeteer.launch({
   const next = '#identifierNext > div.ZFr60d.CeoRYc';
   await page.click(next);
   await page.waitForNavigation();
-  const password = '#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input';
+  const password = '.bCAAsb > form:nth-child(1) > span:nth-child(1) > section:nth-child(1) > div:nth-child(2)';
   await page.waitFor(password);
   console.log("enter pass:")
-  await page.click(password);
-  await page.keyboard.type(CREDS.password);
+  // await page.evaluate((password) => {document.querySelector(password).click(); password.value = CREDS.password; console.log("HI!")}, password)
+  // await page.keyboard.type(CREDS.password);
   // await page.waitForNavigation();
   // await page.waitFor('jkOv3d');
   // page
@@ -32,14 +32,24 @@ const browser = await puppeteer.launch({
   await page.waitForNavigation();
   console.log("Hey");
   const menu = ".gb_wc";
+  await page.waitFor(menu);
   await page.$eval(menu, a => {a.click();});
   const element_wise = "a.Zt1cpf:nth-child(2)";
+  await page.waitFor(element_wise);
   await page.$eval(element_wise, a => {a.click();});
+  // await page.waitForNavigation();
   // await page.click(menu);
   // await page.click("#gb > div.gb_de > div > div.gb_Lc > div > c-wiz > div > div > nav > a:nth-child(1)");
-  const selector = ".KXhB0c.YYajNd";
-  // const results = await page.$$(selector);
+  // await page.waitForNavigation();
+  const selector = ".FcScvd";
+  await page.waitFor(selector);
+  console.log("Heyo");
+  const results = await page.$$(selector);
+  // });
   // console.log(results);
+  results.forEach(result => {
+    console.log(result.children);
+  });
   // await page.mouse.move(0, 0);
   // await page.mouse.down();
   // await page.mouse.move(0, 100);
