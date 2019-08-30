@@ -59,9 +59,9 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-//seed database withcampgrounds
+//seed database with campgrounds
 // seedDB();
 
-app.listen(process.env.PORT,process.env.IP,function(){
+app.listen(3000,"localhost" ,function(){
     console.log("YelpCamp has started");
 });
