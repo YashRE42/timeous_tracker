@@ -32,8 +32,9 @@ const browser = await puppeteer.launch({
   await page.waitForNavigation();
   console.log("Hey");
   const menu = "#gb > div.gb_Sd.gb_9d.gb_1d.gb_0d > div.gb_Zc.gb_5c.gb_6c > div:nth-child(1)";
-  await page.click(menu);
-  await page.click("#gb > div.gb_de > div > div.gb_Lc > div > c-wiz > div > div > nav > a:nth-child(1)");
+  await page.$eval("#gb > div.gb_Sd.gb_9d.gb_1d.gb_0d > div.gb_Zc.gb_5c.gb_6c > div:nth-child(1)")
+  // await page.click("#gb > div.gb_Sd.gb_9d.gb_1d.gb_0d > div.gb_Zc.gb_5c.gb_6c > div:nth-child(1)");
+  await page.click("#gb > div.gb_de > div > div.gb_Lc > div > c-wiz > div > div > nav > a:nth-child(1)", a => {a.click()});
   const selector = ".KXhB0c.YYajNd";
   // const results = await page.$$(selector);
   // console.log(results);
