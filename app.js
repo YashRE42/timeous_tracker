@@ -110,9 +110,11 @@ app.post("/category", function(req, res){
  })
  
 
-//seed database withcampgrounds
+//seed database with campgrounds
 // seedDB();
 
-app.listen(3000,"localhost",function(){
+
+app.listen(3000,"localhost" ,function(){
+
     console.log("YelpCamp has started");
 });
