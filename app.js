@@ -12,6 +12,8 @@ var express       = require("express"),
     User          = require("./models/user"),
     //create campground model
     Campground    = require("./models/campground"),
+    // Create category model
+    Category = require("./models/category");
     //create comments model
     Comment       = require("./models/comment"),
     //require seeder
@@ -22,6 +24,7 @@ var express       = require("express"),
 var commentRoutes=require("./routes/comments.js"),
     campgroundRoutes=require("./routes/campgrounds.js"),
     indexRoutes=require("./routes/Index.js");
+    // categoryRoutes = require("./routes/category.js");
 
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -58,10 +61,60 @@ app.use(function(req, res, next){
 app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
+// app.use("/category",);
+
+
+// Category routes
+
+// SHOW route
+app.get("/category", function(req,res){
+    res.render("showcat");
+})
+
+// NEW Route
+app.get("/category/new", function(req, res){
+    res.render("category");
+})
+
+// CREATE Route
+app.post("/category", function(req, res){
+    var category = req.body.category;
+    var color = req.body.color;
+    var newCategory = {
+        category: category,
+        color: color,
+    };
+
+    // console.log(newCategory);
+ 
+    Category.create(newCategory, function(err, newCat){
+        if(err){
+            console.log(err);
+            res.redirect("/category"); 
+        }else{
+            res.redirect("/category");
+            // console.log(newCat.category);
+        }
+    });
+ 
+ });
+ 
+ app.delete("/category/:id", function(req, res){
+     Category.findByIdAndDelete(req.params.id, function(err){
+         if(err){
+             res.redirect("/category");
+         }else{
+             res.redirect("/category");
+         }
+     });
+ })
+ 
 
 //seed database with campgrounds
 // seedDB();
 
+
 app.listen(3000,"localhost" ,function(){
+
     console.log("YelpCamp has started");
 });
